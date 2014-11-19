@@ -1,0 +1,26 @@
+# Default settings that all others account inherit
+defaults
+auth   on
+tls   on
+tls_certcheck on
+tls_fingerprint <%= server_finger_print %>
+# Or
+# tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+# Logging - uncomment either syslog or logfile, having both uncommented disables logging at all.
+#syslog on
+# Or to log to log own file
+#logfile  /var/log/msmtp.log
+
+keepbcc  on
+
+# Main account
+account  <%= account_name %>
+host   <%= account_host %>
+port   <%= account_port %>
+from   <%= account_from %>
+user   <%= account_user %>
+password  <%= account_pass %>
+
+# Default account to use
+account default : <%= account_name %>

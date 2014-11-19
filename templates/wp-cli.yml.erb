@@ -1,0 +1,11 @@
+path: /var/www/html
+url: <%= main_site_url %>
+
+core config:
+  dbuser: <%= database_user %>
+  dbpass: <%= database_pass %>
+  dbhost: <%= database_host %>:<%= database_port %>
+  dbname: <%= database_name %>
+  extra-php: |
+    define( 'WP_DEBUG', false );
+    define( 'WP_POST_REVISIONS', 50 );
