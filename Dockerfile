@@ -56,7 +56,7 @@ COPY templates /templates
 COPY wordpress.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Download latest wordpress code
-RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download
+RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download --version=4.0.1
 
 # Setup main volume
 VOLUME ["/var/www/wordpress"]
