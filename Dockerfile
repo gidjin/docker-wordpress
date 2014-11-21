@@ -55,7 +55,7 @@ RUN chmod 755 /etc/my_init.d/*
 COPY templates /templates
 
 # Download latest wordpress code
-RUN sudo -u www-data /bin/wp core --path=/var/www/html download
+RUN sudo -u www-data /bin/wp core --path=/var/www/html download --version=4.0.1
 
 # Setup main volume
 VOLUME ["/var/www/html"]
