@@ -59,7 +59,7 @@ COPY wp-crontab /wp-crontab
 RUN crontab -u www-data /wp-crontab
 
 # Download latest wordpress code
-RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download
+RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download --version=4.0.1
 
 # Setup main volume
 VOLUME ["/var/www/wordpress"]
