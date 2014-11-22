@@ -45,20 +45,21 @@ RUN mv wp-cli.phar /bin/wp
 RUN chmod +x /bin/wp
 
 # Clear out default site
-RUN rm -rf /var/www/html/*
-RUN chown www-data:www-data /var/www/html
+RUN mkdir /var/www/wordpress
+RUN chown www-data:www-data /var/www/wordpress
 
 # Install my_init.d startup scripts
 COPY my_init.d/* /etc/my_init.d/
 RUN chmod 755 /etc/my_init.d/*
 # Install tempates
 COPY templates /templates
+COPY wordpress.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Download latest wordpress code
-RUN sudo -u www-data /bin/wp core --path=/var/www/html download
+RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download
 
 # Setup main volume
-VOLUME ["/var/www/html"]
+VOLUME ["/var/www/wordpress"]
 
 # Clean up apt
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

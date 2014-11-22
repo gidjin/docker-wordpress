@@ -5,10 +5,10 @@ service apache2 stop
 echo "Start up apache"
 service apache2 start
 # If not installed
-if [ -e "/var/www/html/wp-config.php" ]
+if [ -e "/var/www/wordpress/wp-config.php" ]
   then
     echo "Generating wp-config.php file"
-    rm /var/www/html/wp-config.php
+    rm /var/www/wordpress/wp-config.php
     sudo -u www-data /bin/wp core config
     echo "Skipping wordpress install"
   else
