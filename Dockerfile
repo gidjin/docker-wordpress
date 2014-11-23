@@ -54,6 +54,9 @@ RUN chmod 755 /etc/my_init.d/*
 # Install tempates
 COPY templates /templates
 COPY wordpress.conf /etc/apache2/sites-enabled/000-default.conf
+RUN mkdir /var/log/wordpress && chown www-data:www-data /var/log/wordpress
+COPY wp-crontab /wp-crontab
+RUN crontab -u www-data /wp-crontab
 
 # Download latest wordpress code
 RUN sudo -u www-data /bin/wp core --path=/var/www/wordpress download

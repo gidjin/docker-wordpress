@@ -1,0 +1,1 @@
+25 */6 * * * cd /var/www/wordpress/ && /usr/bin/php -f ./wp-cron.php > /var/log/wordpress/wp.cron.log 2>&1
