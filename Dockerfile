@@ -1,4 +1,4 @@
-FROM wordpress:4.2.4
+FROM wordpress:4.3
 MAINTAINER John Gedeon <js1@gedeons.com>
 
 COPY update_wp_config.sh /tmp/
