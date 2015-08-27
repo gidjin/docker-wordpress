@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'erb'
+require 'fileutils'
 
 server_finger_print = nil
 account_name = 'gmail'
@@ -33,4 +34,6 @@ end
 
 puts "Rendering msmtprc"
 renderer = ERB.new(File.read("/templates/msmtprc.erb"))
-File.write("/etc/msmtprc", renderer.result())
+File.write("/usr/local/etc/msmtprc", renderer.result())
+FileUtils.chmod("u=rw,go-rw", "/usr/local/etc/msmtprc", :verbose => true)
+FileUtils.chown("www-data", "www-data", "/usr/local/etc/msmtprc", :verbose => true)
