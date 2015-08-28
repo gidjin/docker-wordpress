@@ -15,6 +15,7 @@ RUN chmod a+x /init.sh
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["/init.sh"]
+CMD ["apache2-foreground"]
 
 # Download wp-cli
 # RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
