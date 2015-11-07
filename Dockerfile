@@ -1,4 +1,4 @@
-FROM wordpress:4.3
+FROM wordpress:4.3.1
 MAINTAINER John Gedeon <js1@gedeons.com>
 
 # let debian know we are not interactive
