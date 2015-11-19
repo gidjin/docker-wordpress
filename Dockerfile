@@ -1,14 +1,28 @@
-FROM wordpress:4.3.1
+FROM tutum/wordpress-stackable:latest
 MAINTAINER John Gedeon <js1@gedeons.com>
 
 # let debian know we are not interactive
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get -yq install msmtp msmtp-mta ruby && \
+RUN apt-get update && apt-get -yq install mysql-client curl msmtp msmtp-mta \
+    ruby && \
     gem install daemons faraday
 
 # setup root
 USER root
+
+WORKDIR /
+
+ENV WORDPRESS_VERSION 4.3.1
+ENV WORDPRESS_SHA1 b2e5652a6d2333cabe7b37459362a3e5b8b66221
+
+# upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
+RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz \
+  && echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - \
+  && tar -xzf wordpress.tar.gz -C / \
+  && rm wordpress.tar.gz \
+  && cp -av /wordpress /app \
+  && chown -R www-data:www-data /app
 
 # add utilities
 COPY bin/* /usr/local/bin/
@@ -21,11 +35,4 @@ COPY templates /templates
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["/usr/local/bin/init.sh"]
-CMD ["apache2-foreground"]
-
-# Download wp-cli
-# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# Install wp-cli
-# RUN mv wp-cli.phar /bin/wp
-# RUN chmod +x /bin/wp
+CMD ["/usr/local/bin/init.sh"]
