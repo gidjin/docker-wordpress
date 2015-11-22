@@ -5,8 +5,8 @@ MAINTAINER John Gedeon <js1@gedeons.com>
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -yq install mysql-client curl msmtp msmtp-mta \
-    ruby && \
-    gem install daemons faraday
+    ruby cron && \
+    gem install whenever daemons faraday
 
 # setup root
 USER root
@@ -25,6 +25,7 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_VER
   && chown -R www-data:www-data /app
 
 # add utilities
+COPY schedule.rb /schedule.rb
 COPY bin/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
 COPY lib/* /usr/local/lib/
