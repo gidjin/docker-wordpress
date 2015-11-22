@@ -5,8 +5,14 @@ MAINTAINER John Gedeon <js1@gedeons.com>
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -yq install mysql-client curl msmtp msmtp-mta \
-    ruby cron && \
-    gem install whenever daemons faraday
+    cron curl gnupg build-essential
+
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN \curl -sSL https://get.rvm.io | bash -s stable
+RUN echo "US/Pacific" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+RUN bash -l -c "rvm install 2.2.3 \
+  && rvm info \
+  && gem install bundler daemons faraday whenever"
 
 # setup root
 USER root
