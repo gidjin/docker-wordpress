@@ -37,7 +37,8 @@ RUN chmod 755 /usr/local/bin/*
 COPY lib/* /usr/local/lib/
 RUN /usr/local/bin/update_wp_config.sh
 
-COPY msmtprc.ini /usr/local/etc/php/conf.d/
+COPY msmtprc.ini /etc/php5/apache2/conf.d/
+COPY msmtprc.ini /etc/php5/cli/conf.d/
 COPY templates /templates
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
