@@ -36,6 +36,9 @@ puts "Rendering msmtprc"
 renderer = ERB.new(File.read("/templates/msmtprc.erb"))
 File.write("/etc/php5/apache2/msmtprc", renderer.result())
 File.write("/etc/php5/cli/msmtprc", renderer.result())
+
 FileUtils.chmod("u=rw,go-rw", "/etc/php5/apache2/msmtprc", :verbose => true)
 FileUtils.chmod("u=rw,go-rw", "/etc/php5/cli/msmtprc", :verbose => true)
-FileUtils.chown("www-data", "www-data", "/usr/local/etc/msmtprc", :verbose => true)
+
+FileUtils.chown("www-data", "www-data", "/etc/php5/apache2/msmtprc", :verbose => true)
+FileUtils.chown("www-data", "www-data", "/etc/php5/cli/msmtprc", :verbose => true)
