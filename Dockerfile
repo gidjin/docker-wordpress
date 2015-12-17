@@ -5,7 +5,7 @@ MAINTAINER John Gedeon <js1@gedeons.com>
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -yq install mysql-client curl msmtp msmtp-mta \
-    cron curl gnupg build-essential openssh-client ocaml-native-compilers exuberant-ctags
+    cron curl gnupg build-essential openssh-client ocaml-native-compilers exuberant-ctags inotify-tools
 
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN \curl -sSL https://get.rvm.io | bash -s stable
@@ -45,6 +45,7 @@ COPY *.prf /root/.unison/
 
 # add utilities
 COPY schedule.rb /schedule.rb
+COPY schedule_root.rb /schedule_root.rb
 COPY bin/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
 COPY lib/* /usr/local/lib/

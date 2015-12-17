@@ -1,11 +1,11 @@
 root = /app/wp-content
-root = ssh://datavolume//app/content
+root = ssh://datavolume//mnt/s3ql/data/wordpress/wp-content
 
 batch = true
 group = true
 owner = true
 times = true
-prefer = ssh://datavolume//app/content
+prefer = ssh://datavolume//mnt/s3ql/data/wordpress/wp-content
 copyonconflict = true
 
 logfile = /dev/stdout
