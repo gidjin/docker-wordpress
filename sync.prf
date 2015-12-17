@@ -1,0 +1,11 @@
+root = /app/wp-content
+root = ssh://datavolume//app/content
+
+batch = true
+group = true
+owner = true
+times = true
+prefer = newer
+copyonconflict = true
+
+logfile = /dev/stdout

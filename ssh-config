@@ -1,0 +1,2 @@
+StrictHostKeyChecking no
+identityFile /root/.ssh/sync_rsa
