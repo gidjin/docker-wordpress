@@ -21,3 +21,9 @@ wp option set permalink_structure "/%postname%/"
 wp option set start_of_week 0
 wp option set gmtoffset
 
+
+wp cron event list --fields=hook,recurrence | grep "1 day" | cut -f 1 | xargs wp cron event run
+wp cron event list --fields=hook,recurrence | grep "1 hour" | cut -f 1 | xargs wp cron event run
+wp cron event list --fields=hook,recurrence | grep "12 hours" | cut -f 1 | xargs wp cron event run
+
+runuser -u www-data -- wp cron event list --fields=hook,recurrence | grep "1 day" | cut -f 1 | xargs runuser -u www-data -- wp cron event run > /dev/stdout 2>&1
