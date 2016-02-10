@@ -30,9 +30,10 @@ RUN chmod 755 /usr/local/bin/*
 
 # COPY msmtprc.ini /usr/local/etc/php/conf.d/
 # COPY templates /templates
+RUN mkdir /database-backups
 
-VOLUME ["/var/www/html/wp-content"]
+VOLUME ["/database-backups", "/var/www/html/wp-content"]
 
-# ENTRYPOINT ["/usr/local/bin/init.sh"]
+ENTRYPOINT ["/usr/local/bin/init.sh"]
 
 CMD ["apachectl -DFOREGROUND"]
