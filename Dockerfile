@@ -5,7 +5,8 @@ MAINTAINER John Gedeon <js1@gedeons.com>
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-  apt-get -yq install curl php5 php5-cli php5-cgi php5-mysql sudo \
+  apt-get -yq install curl php5 php5-cli php5-cgi php5-gd php5-mysql sudo \
+    libphp-phpmailer libjs-cropper libjs-mediaelement php-getid3 \
     apache2 libapache2-mod-php5 mysql-client msmtp msmtp-mta ruby && \
   gem install daemons faraday
 

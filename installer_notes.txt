@@ -1,0 +1,23 @@
+# un-official strict mode
+set -euo pipefail
+
+wp db create
+
+wp db export [filename]
+wp db import [filename]
+
+wp core install --url=www.example.com --title=stuff --admin_user=admin --admin_password=password --admin_email=john@example.com
+wp plugin install wp-super-cache
+wp plugin install wp-maintenance-mode
+wp plugin install google-analytics-for-wordpress
+wp plugin install --activate wordfence
+
+wp core check-update
+wp core update
+wp plugin status
+
+wp option set close_comments_for_old_posts 1
+wp option set permalink_structure "/%postname%/"
+wp option set start_of_week 0
+wp option set gmtoffset
+
