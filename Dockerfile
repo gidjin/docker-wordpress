@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
   apt-get -yq install curl php5 php5-cli php5-cgi php5-gd php5-mysql sudo \
     libphp-phpmailer libjs-cropper libjs-mediaelement php-getid3 \
-    apache2 libapache2-mod-php5 mysql-client msmtp msmtp-mta ruby && \
-  gem install daemons faraday
+    apache2 libapache2-mod-php5 mysql-client msmtp msmtp-mta ruby cron && \
+  gem install daemons faraday whenever
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -29,8 +29,8 @@ RUN chmod 755 /usr/local/bin/*
 # COPY lib/* /usr/local/lib/
 # RUN /usr/local/bin/update_wp_config.sh
 
-# COPY msmtprc.ini /usr/local/etc/php/conf.d/
-# COPY templates /templates
+COPY msmtprc.ini /etc/php5/apache2/conf.d/
+COPY templates /templates
 RUN mkdir /database-backups
 
 VOLUME ["/database-backups", "/var/www/html/wp-content"]
