@@ -8,4 +8,4 @@ set -e
 #   # /usr/local/bin/etcd_updater_service.rb start
 # fi
 
-exec "$@"
+eval $@

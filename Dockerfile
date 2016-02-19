@@ -26,15 +26,19 @@ RUN runuser -u www-data -- /usr/local/bin/wp core download
 # add utilities
 COPY bin/* /usr/local/bin/
 RUN chmod 755 /usr/local/bin/*
+COPY schedule.rb /usr/local/lib/
+RUN whenever -u root -w -f /usr/local/lib/schedule.rb
 # COPY lib/* /usr/local/lib/
 # RUN /usr/local/bin/update_wp_config.sh
 
 COPY msmtprc.ini /etc/php5/apache2/conf.d/
 COPY templates /templates
 RUN mkdir /database-backups
+RUN chown www-data:www-data /database-backups
+RUN chmod 755 /database-backups
 
 VOLUME ["/database-backups", "/var/www/html/wp-content"]
 
 ENTRYPOINT ["/usr/local/bin/init.sh"]
 
-CMD ["apachectl -DFOREGROUND"]
+CMD ["/usr/sbin/apachectl -DFOREGROUND"]
